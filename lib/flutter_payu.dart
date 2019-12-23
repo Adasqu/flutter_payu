@@ -15,12 +15,15 @@ class GooglePayResponse {
 class FlutterPayu {
   static const MethodChannel _channel = const MethodChannel('flutter_payu');
 
-  static Future<GooglePayResponse> googlePay(String posId, int price) async {
-    if(!Platform.isAndroid)
-      throw UnsupportedError;
+  static Future<GooglePayResponse> googlePay(
+      String posId, int price, String merchantName) async {
+    if (!Platform.isAndroid) throw UnsupportedError;
     try {
-      final message = await _channel
-          .invokeMethod("googlePay", {"posId": posId, "price": price});
+      final message = await _channel.invokeMethod("googlePay", {
+        "posId": posId,
+        "price": price,
+        "merchantName": merchantName,
+      });
       return GooglePayResponse(GooglePayResponseStatus.OK, message);
     } on PlatformException catch (exception) {
       if (exception.details == "canceled") {
