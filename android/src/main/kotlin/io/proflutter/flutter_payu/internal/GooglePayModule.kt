@@ -33,13 +33,13 @@ class GooglePayModule(registrar: PluginRegistry.Registrar, val channel: MethodCh
         }
     }
 
-    fun googlePay(result: MethodChannel.Result, postId: String, price: Int) {
+    fun googlePay(result: MethodChannel.Result, postId: String, price: Int, merchantName: String) {
 
         this.result = result
         val cart = Cart.Builder()
                 .withTotalPrice(price) //10.00 as an integer
                 .withCurrency(Currency.PLN)
                 .build()
-        googlePayService.requestGooglePayCard(cart, postId)
+        googlePayService.requestGooglePayCard(cart, postId, merchantName)
     }
 }

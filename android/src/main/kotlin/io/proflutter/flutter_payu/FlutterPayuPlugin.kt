@@ -25,7 +25,8 @@ class FlutterPayuPlugin(methodChannel: MethodChannel, registrar: PluginRegistry.
             val arugments = call.arguments<Map<String, Any>>()
             val posId: String = arugments["posId"] as String
             val price: Int = arugments["price"] as Int
-            googlePayModule.googlePay(result, posId, price)
+            val merchantName: String = arugments["merchantName"] as String
+            googlePayModule.googlePay(result, posId, price, merchantName)
         } else {
             result.notImplemented()
         }
